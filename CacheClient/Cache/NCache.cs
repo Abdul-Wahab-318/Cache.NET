@@ -44,7 +44,7 @@ namespace CacheClient.Cache
             if (key == null)
                 throw new ArgumentNullException("Cache Key cannot be null");
 
-            TcpRequest request = new TcpRequest(Method: RequestMethod.GET, key, new CacheItemDTO());
+            TcpRequest request = new TcpRequest(Method: RequestMethod.GET, key);
 
             TcpResponse response = _connection.Send(request);
             Console.WriteLine("GET Response : " + response.Message + "\nSuccess : " + response.IsSuccess);
@@ -54,19 +54,35 @@ namespace CacheClient.Cache
         // Updates the complete object in the cache for the given key. Throws exception if key does not exist.
         public void Update(string key, object value)
         {
-            throw new NotImplementedException();
+            if (key == null)
+                throw new ArgumentNullException("Cache Key cannot be null");
+
+            CacheItemDTO item = new CacheItemDTO(value);
+            TcpRequest request = new TcpRequest(Method: RequestMethod.UPDATE, key, item);
+
+            TcpResponse response = _connection.Send(request);
+            Console.WriteLine("UPDATE Response : " + response.Message + "\nSuccess : " + response.IsSuccess);
         }
 
         // Removes the object from cache against the given key. Does nothing if it does not exist.
         public void Remove(string key)
         {
-            throw new NotImplementedException();
+            if (key == null)
+                throw new ArgumentNullException("Cache Key cannot be null");
+
+            TcpRequest request = new TcpRequest(Method: RequestMethod.UPDATE, key);
+
+            TcpResponse response = _connection.Send(request);
+            Console.WriteLine("UPDATE Response : " + response.Message + "\nSuccess : " + response.IsSuccess);
         }
 
         // Clears the cache.	
         public void Clear()
         {
-            throw new NotImplementedException();
+            TcpRequest request = new TcpRequest(Method: RequestMethod.CLEAR);
+
+            TcpResponse response = _connection.Send(request);
+            Console.WriteLine("UPDATE Response : " + response.Message + "\nSuccess : " + response.IsSuccess);
         }
 
         // Disposes the ICache instance and all underlying connections.

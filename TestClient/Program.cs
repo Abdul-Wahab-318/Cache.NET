@@ -9,7 +9,7 @@ public class Program
 
         Console.ReadKey();
 
-        object cache_item = cache.Get("first_item");
+        string cache_item = cache.Get("first_item") as string ;
         Console.WriteLine("My cache item : " + cache_item);
 
         Console.ReadKey();

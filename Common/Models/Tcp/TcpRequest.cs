@@ -29,6 +29,12 @@ namespace Common.Models.Tcp
             this.Key = Key;
             this.CacheItem = cacheItem;
         }
+        public TcpRequest(RequestMethod Method, string Key)
+        {
+            this.Method = Method;
+            this.Key = Key;
+            this.CacheItem = null;
+        }
 
     }
 }
